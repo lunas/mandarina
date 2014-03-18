@@ -1,0 +1,555 @@
+
+/* ******************************************************************** */
+/*                  Layout                                              */
+/* ******************************************************************** */
+html, body{
+ margin:0;
+ padding:0;
+ font-size: 100%;
+ line-height: 1.125em;
+/* font-family: "Trebuchet MS",Verdana,Arial,sans-serif;*/
+ font-family: "Courier New", Courier, monospace;
+ }
+
+#pagewidth{
+ width:1024px;
+}
+#pagewidth-galerie-petopia {
+  width: 1112px;
+}
+#wrapper{
+ min-height: 400px;
+}
+#header{
+ position:relative;
+ height:249px;
+ background-color: #FFFFFF;
+ background: white url('images/mandarina-bg.jpg') no-repeat top left;
+ width:100%;
+ display:block;
+ overflow:auto;
+}
+#header #homelink{
+ position:absolute;
+ left: 180px;
+ bottom: 0px;
+ width: 230px;
+ height: 25px;
+ cursor: pointer;
+}
+#leftcol{
+ width:480px;
+ float:left;
+ position:relative;
+ background-color:#FFFFFF;
+ }
+
+#leftcol #nav {
+ float: right;
+ margin-right: 84px;
+ padding-top: 0px;
+ text-align: right;
+}
+#maincol{
+ padding-top: 5px;
+ background-color: #FFFFFF;
+ position: relative;
+ width:544px;
+ float:right;
+ }
+
+#footer{
+ font-size: 0.9em;
+ position: relative;
+ height:200px;
+  background-color:#FFFFFF;
+ clear:both;
+ display:block;
+ overflow:auto;
+}
+#footer #copyright {
+    position: absolute;
+    right: 4px;
+    top:  100px;
+    font-size: 0.7em;
+}
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+
+/* ****************** Navigation ***************** */
+/* Main Navigation */
+ul.nav {
+ list-style: none;
+ /* text-transform: uppercase; */
+ font-family: "Courier New", Courier, monospace;
+ letter-spacing: 0.3em;
+}
+ul.nav li {
+ margin-bottom: 0.3em;
+}
+ul.nav a, ul.nav a:visited {
+ text-decoration: none;
+ color: black;
+}
+ul.nav a:hover {
+ text-decoration: underline;
+ color: #FF3300;
+}
+
+ul.nav li.current {
+ color: #FF3300;
+}
+ul.nav li.current a, ul.nav li.current a:visited{
+ color: #FF3300;
+}
+ul.nav li.current a:hover{
+  color: black;
+  text-decoration: underline;
+}
+
+/* Footer Navigation */
+#footer ul.nav {
+ position: relative;
+ float: right;
+ margin-left: 0;
+ margin-top: 50px;
+ padding-left: 0;
+}
+ul.footer li {
+ display: inline;
+ font-size: 0.8em;
+}
+ul.footer li:after{
+ content: ' .. ';
+}
+ul.footer li:last-child:after{
+ content: '';
+}
+
+/* *********************** general look and feel ********************** */
+h1{
+ font-size: 1.2em;
+ color: #FF3300;
+ font-weight: normal;
+/* margin-top: 0.5em;*/
+}
+h2{
+ font-size: 1.4em;
+ font-weight: bold;
+}
+h3{
+ font-size: 1em;
+ font-weight: normal;
+ color: #666666;
+}
+p {
+ font-size: 0.8em;
+}
+p.wichtig {
+ font-weight: 700;
+}
+a, a:visited {
+ color: black;
+}
+a:hover {
+ color: #FF3300;
+}
+#maincol ul {
+ font-size: 0.8em;
+}
+
+blockquote span.quotestart {
+  float: left;
+  margin-top: 25px;
+  margin-left: -50px;
+  font-size: 500%;
+  color: #FF6600;
+}
+blockquote a, blockquote .text{
+  font-size: 0.8em;
+}
+
+/* ************************* Home  ************************************ */
+
+.home h2 {
+ font-size: 0.9em;
+}
+.home th {
+ vertical-align: top;
+ text-align: left;
+ font-size: 0.8em;
+}
+.home td {
+ font-size: 0.8em;
+}
+
+#home-gallery {
+  position: relative;
+  width: 544px;
+  height: 250px;
+  background: url(images/petopia/dianakrishan-0.jpg) no-repeat center top;
+}
+#home-gallery a {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  background: url(images/petopia/dianakrishan-1.jpg) no-repeat center;
+  //-webkit-transition: opacity 1.5s linear;
+  //-moz-transition: opacity 1.5s linear;
+  // -o-transition: opacity 1.5s linear;
+  //transition: opacity 1.5s linear;
+}
+#home-gallery #copyright {
+  position: absolute;
+  right: 5px;
+  bottom: 0;
+  font-size: 0.8em;
+  color: white;
+  text-shadow: 1px 1px #000000;
+}
+
+#home-gallery ax:hover {
+  opacity: 1;
+}
+/* ************************* About ************************************ */
+#maincol.about table td:first-child {
+ font-weight: bold; 
+ width: 200px;
+ padding-right: 5px;
+}
+#maincol.about table td {
+  vertical-align: text-top;
+  font-size: 0.8em;
+}
+/* ************************* Projekte  ******************************** */
+#maincol div.left {
+ float: left;
+ width: 260px;
+ height: 330px;
+ margin-bottom: 20px;
+}
+#maincol div.right {
+ float: right;
+ width: 260px;
+ height: 330px;
+ margin-bottom: 20px;
+}
+#maincol div.row{
+ float: left;
+ width: 100%;
+ margin-bottom: 20px;
+}
+.projekte a, .galerie a {
+ text-decoration: none;
+}
+.projekte a:hover h1, .galerie a:hover h1 {
+ color: black;
+ }
+.projekte h1, .galerie h1{
+ margin-bottom: 0.3em;
+}
+.projekte p {
+ margin-top: 0;
+}
+
+/* Projekt-Details */
+
+.projekt-detail h2{
+ font-size: 1em;
+}
+.projekt-detail img {
+  width: 260px;
+  float: left;
+  margin-bottom: 10px;
+}
+.projekt-detail img.wide {
+  width: 544px;
+}
+.projekt-detail a:first-child img{
+  margin-right: 24px;
+}
+.projekt-detail th, .projekt-detail td{
+  font-size: 0.8em;
+  text-align: left;
+  vertical-align: top;
+}
+/* ************************* Galerie ********************************** */
+.galerie #p200mm {
+    position: relative;
+}
+.galerie #p200mm .copyright {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 200px;
+  font-size: 0.7em;
+  text-align: right;
+}
+
+.copyright-frame {
+    position: relative;
+    margin-left: -1em;
+    margin-bottom: 1em;
+    padding-left: 1em;
+    border-left: 1px solid #999;
+}
+.copyright-frame .copyright {
+    color: #666;
+    position: absolute;
+    top: 50px;
+    left: -74px;
+    text-align: right;
+}
+
+.vertical {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+
+    /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+
+    /* Should be unset in IE9+ I think. */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+/* Details */
+
+.galerie-detail img.portrait {
+  border: 0px;
+  margin: 0 7px 7px 0;
+  float: left;
+  width: 174px;
+  height: 261px;
+}
+.galerie-detail img.landscape {
+  border: 0px;
+  margin: 0 5px 5px 0;
+  float: left;
+  width: 267px;
+  height: 178px;
+}
+.galerie-detail img.square{
+  border: 0px;
+  width: 120px;
+  height: 120px;
+  margin: 0 10px 10px 0;
+}
+
+/* --------- Galerie 200mm ---------- */
+
+.galerie-200mm img.landscape {
+  border: 0px;
+  margin: 0 5px 5px 0;
+  float: left;
+  width: 267px;
+  height: 178px;
+}
+
+.galerie-200mm img.portrait {
+  float: left;
+  border: 0px;
+  margin: 0 7px 7px 0;
+  width: 119px;
+  height: 178px;
+}
+/* --------- Galerie Petopia --------- */
+#maincol.galerie-petopia {
+    width: 555px;
+}
+.galerie-petopia img {
+    border: 0px;
+    margin: 0 5px 5px 0;
+    float: left;
+    height: 180px;
+    width: auto;
+}
+
+/* ************************* Presse *********************************** */
+
+.presse h1 {
+  width: 540px;
+}
+.presse h2 {
+  font-size: 0.9em;
+}
+.presse img {
+  border: 0;
+  padding: 0px 0px 5px 0px;
+}
+
+.presse .images {
+  float: left;
+  width: 280px;
+  position: relative;
+  margin-right: 20px;
+}
+
+.presse .text {
+  display: inline-block;
+  position: relative;
+  float: left;
+  width: 240px;
+  margin-left: 20px;
+}
+.presse .text h3{
+  margin-top: 0px;
+}
+.presse .date {
+  margin-top: -1.5em;
+  margin-bottom: -1.5em;
+  color: #999;
+  font-size: 0.6em;
+}
+.presse p.quelle {
+  margin-top: -1em;
+  text-align: right;
+  font-size: 0.6em;
+}
+/* ************************* Kontakt ********************************** */
+
+
+/* ************************* Daten ************************************ */
+
+div#maincol.daten {
+  padding-top: 11px;
+}
+table.dates {
+  border-spacing: 0;
+  width: 100%;
+  font-size: 0.8em;
+}
+table.dates th {
+  text-align: left;
+  cursor: pointer;
+  border-bottom: solid grey 1px;
+}
+table.dates td {
+  vertical-align: top;
+  padding: 9px;
+}
+table.dates td:first-child {
+  white-space:nowrap;
+}
+
+table.dates tr.mouseover {
+  background-color: #FF3300;
+  color: white;
+}
+table.dates tr.mouseover a, table.dates tr.mouseover a:visited {
+  color: white;
+}
+table.dates tr.mouseover a:hover {
+  color: black;
+}
+table .small {
+  font-size: 10px;
+}
+
+/* show/hide tabs and table */
+
+#tabs{
+  width: 100%;
+}
+#tabs p{
+  margin: 0;
+  padding: 5px 5px 10px 5px;
+}
+#tabs #tab_neue{
+  float: left;
+}
+#tabs #tab_alte{
+  float: right;
+}
+#tabs a{
+  color: grey;
+}
+#tabs a.current, #tabs a.current:hover{
+  cursor: default;
+  text-decoration: none;
+  color: black;
+}
+#alte_daten thx, .grey{
+  background-color: #ccc;
+}
+
+/* ---------------------- tablessorter ------------------------- */
+
+table.xxtablesorter {
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	width: 100%;
+	text-align: left;
+}
+table.xxtablesorter thead tr th, table.xxtablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.xxtablesorter thead tr .header {
+	background-image: url(../images/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.xxtablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.xxtablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.xxtablesorter thead tr .headerSortUp {
+	background-image: url(../images/asc.gif);
+}
+table.xxtablesorter thead tr .headerSortDown {
+	background-image: url(../images/desc.gif);
+}
+table.xxtablesorter thead tr .headerSortDown, table.xxtablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
+}
+
+
+/* ******************************************************************** */
+/* Clearfix: http://csscreator.com/attributes/containedfloat.php        */
+/* ******************************************************************** */
+.clearfix:after {
+ content: ".";
+ display: block;
+height: 0;
+ clear: both;
+ visibility: hidden;
+ }
+
+.clearfix{display: inline-block;}
+
+/* Hides from IE-mac \*/
+* html .clearfix{height: 1%;}
+.clearfix{display: block;}
+/* End hide from IE-mac */
+
+
+
+
+/* ******************************************************************** */
+/*                      printer styles                                  */
+/* ******************************************************************** */
+
+ @media print{
+/*hide the left column when printing*/
+#leftcol{display:none;}
+#twocols, #maincol{width:100%; float:none;}
+}

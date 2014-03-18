@@ -1,0 +1,340 @@
+<!doctype html>
+<html>
+<head>
+<title>Mandarina</title>
+<meta charset="utf-8" />
+
+<!--[if IE]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="mandarina.css" type="text/css" />
+
+    <script src="https://www.google.com/jsapi?key=ABQIAAAAibYGVe0CtqJlWjm_QZTdwRRK_R3WoO20CKu4A97zg-E4dHvW7BQxcLgOER-QSvoz62ddp3LL9x7iXg"
+        type="text/javascript"></script>
+    <script src="/jscript/jquery-2.0.3.min.js"></script>
+    <script src="/jscript/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/jscript/tools.js"></script>
+    <script src="/jscript/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <script src="/jscript/date.js"			 type="text/javascript"></script>
+
+    <script language="JavaScript" type="text/javascript">
+
+     $(document).ready(function() {
+
+			function date2num(s) {
+				var hit = s.match(/(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})/);
+				if (hit == null)
+					return 0;
+				var day = hit[1];
+				var month = hit[2];
+				var year  = hit[3];
+				var d = new Date(year, month, day);
+				return d.getTime();
+			}
+
+			function time2num(s) {
+				var hit = s.match(/(\d{1,2})[\.:](\d{2})/);
+				if (hit==null)
+					return 1439;	//1 Minute vor Mitternacht > kommt ans ende
+				var hours = hit[1];
+				var mins  = parseInt(hit[2]);
+				return hours*60+mins;
+			}
+
+      var rows = $('#neue_daten tbody tr');
+      $.each(rows, function(index, row) {
+				var datum = $(row).find('td:first').html();
+				var datumInMs = date2num(datum);
+				var today = new Date();
+				if (datumInMs < today.getTime()) {
+					$(row).prependTo('#alte_daten tbody');
+				}
+      });
+
+      $.tablesorter.addParser({
+                      id: 'datum',
+                      is: function(s) { return false;},
+                      format: date2num,
+                      type: 'numeric'
+              });
+
+         $.tablesorter.addParser({
+                      id: 'zeit',
+                      is: function(s) { return false;},
+                      format: time2num,
+                      type: 'numeric'
+              });
+
+         $("#neue_daten").tablesorter({
+                       sortList: [[0,0],[1,0]], //nach 1. und 2. Spalte sortierend, asc.
+                       headers: {
+                              0: {sorter: 'datum'},
+                              1: {sorter: 'zeit'}
+                      }
+              });
+
+
+         $("#alte_daten").tablesorter({
+                       sortList: [[0,1],[1,1]], //nach 1. und 2. Spalte sortierend, asc.
+                       headers: {
+                              0: {sorter: 'datum'},
+                              1: {sorter: 'zeit'}
+                      }
+              });
+
+         $('table.dates tbody tr').hover(
+                                         function(event) { $(this).addClass('mouseover'); },
+                                         function(event) { $(this).removeClass('mouseover'); }
+                                         );
+
+    // show/hide tab Neue Daten and Alte Daten
+
+         $('#alte_daten').hide();
+         $('#tab_neue a').click( function(event){
+              if ($(this).hasClass('current')){
+                return false;
+              }
+              $('#alte_daten').hide();
+              $('#neue_daten').show();
+              $('#tabs a').toggleClass('current');
+             });
+
+         $('#tab_alte a').click( function(event){
+              if ($(this).hasClass('current')){
+                return false;
+              }
+              $('#neue_daten').hide();
+              $('#alte_daten').show();
+              $('#tabs a').toggleClass('current');
+             });
+
+         }
+       );
+ </script>
+</head>
+<body>
+<div id="pagewidth" >
+
+  <header id="header"><div id="homelink"></div></header>
+  <div id="wrapper" class="clearfix">
+
+    <div id="maincol" class="daten">
+
+<a name="neue"></a>
+<div id="tabs">
+  <p id="tab_neue"><a href="#" class="current">Hier spielen wir:</a></p>
+  <p id="tab_alte" ><a href="#">Hier haben wir gespielt</a></p>
+</div>
+<table id="neue_daten" class="dates">
+<thead>
+<tr><th>Datum</th><th>Zeit</th><th>St&uuml;ck</th><th>Ort</th><th>Theater (Link)</th></tr>
+</thead>
+<tbody>
+
+  <tr><td date="22.02.2014">Sa 22.02.2014</td><td>17:00</td><td>Petopia</td><td>Aarau</td>
+    <td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
+  <tr><td date="23.02.2014">So 23.02.2014</td><td>11:00</td><td>Petopia</td><td>Aarau</td>
+    <td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
+   <tr><td date="24.02.2014">Mo 24.02.2014</td><td>10:00</td><td>Petopia</td><td>Aarau</td>
+    <td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
+   <tr><td date="25.02.2014">Di 25.02.2014</td><td>10:00</td><td>Petopia</td><td>Aarau</td>
+    <td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
+   <tr><td date="26.02.2014">Mi 26.02.2014</td><td>10:00</td><td>Petopia</td><td>Aarau</td>
+    <td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
+   <tr><td date="26.02.2014">Mi 26.02.2014</td><td>14:00</td><td>Petopia</td><td>Aarau</td>
+    <td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
+
+   <tr><td date="03.05.2014">Sa 03.05.2014</td><td>16:00</td><td>Petopia</td><td>Bern</td>
+    <td><a href="http://www.schlachthaus.ch" target="_blank">Schlachthaus Theater Bern</a></td></tr>
+  <tr><td date="04.05.2014">So 04.05.2014</td><td>16:00</td><td>Petopia</td><td>Bern</td>
+    <td><a href="http://www.schlachthaus.ch" target="_blank">Schlachthaus Theater Bern</a></td></tr>
+  <tr><td date="05.05.2014">Mo 05.05.2014</td><td>10:00</td><td>Petopia</td><td>Bern</td>
+    <td><a href="http://www.schlachthaus.ch" target="_blank">Schlachthaus Theater Bern</a></td></tr>
+  <tr><td date="06.05.2014">Di 06.05.2014</td><td>10:00</td><td>Petopia</td><td>Bern</td>
+    <td><a href="http://www.schlachthaus.ch" target="_blank">Schlachthaus Theater Bern</a></td></tr>
+
+  <tr><td date="16.02.2014">So 16.02.2014</td><td>15:15</td><td>Petopia</td><td>Weinfelden</td>
+    <td><a href="http://www.theaterhausthurgau.ch" target="_blank">Theaterhaus Thurgau</a></td></tr>
+  <tr><td date="17.02.2014">Mo 17.02.2014</td><td>10:15</td><td>Petopia</td><td>Weinfelden</td>
+    <td><a href="http://www.theaterhausthurgau.ch" target="_blank">Theaterhaus Thurgau</a></td></tr>
+  <tr><td date="17.02.2014">Mo 17.02.2014</td><td>14:15</td><td>Petopia</td><td>Weinfelden</td>
+    <td><a href="http://www.theaterhausthurgau.ch" target="_blank">Theaterhaus Thurgau</a></td></tr>
+  <tr><td date="18.02.2014">Di 18.02.2014</td><td>10:15</td><td>Petopia</td><td>Weinfelden</td>
+    <td><a href="http://www.theaterhausthurgau.ch" target="_blank">Theaterhaus Thurgau</a></td></tr>
+  <tr><td date="18.02.2014">Di 18.02.2014</td><td>14:15</td><td>Petopia</td><td>Weinfelden</td>
+    <td><a href="http://www.theaterhausthurgau.ch" target="_blank">Theaterhaus Thurgau</a></td></tr>
+ 
+</tbody>
+</table>
+
+<br/><br/>
+
+<table id="alte_daten" class="dates">
+<thead>
+<tr><th>Datum</th><th>Zeit</th><th>St&uuml;ck</th><th>Ort</th><th>Theater </th></tr>
+</thead>
+<tbody>
+
+<!--  Schon vorbereitet: Petopia-Daten-Zusammenfassung fuer Bern und Aarau:
+  <tr><td date="03.05.2014">Sa 3. - 6. 5.2014</td><td>4 mal</td><td>Petopia</td><td>Bern</td>
+  <td><a href="http://www.schlachthaus.ch" target="_blank">Schlachthaus Theater Bern</a></td></tr>
+  <tr><td date="22.02.2014">22. - 26.02.2014</td><td>6 mal</td><td>Petopia</td><td>Aarau</td>
+  <td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
+-->
+
+  <tr><td date="23.10.2013">23. - 3.31.2013 </td><td>9 mal</td><td>Petopia</td><td>Z&uuml;rich</td>
+  <td><a href="http://www.theater-stadelhofen.ch" target="_blank">Theater Stadelhofen</a></td></tr>
+  <tr><td date="27.01.2012">20. - 28.01.2012 </td><td>5 mal</td><td>200mm</td><td>Aarau</td>
+	<td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
+  <tr><td date="01.02.2012">01.02.2012 </td><td>10:00</td><td>Was gisch mer f&uuml;r d Welt?</td><td>Belp</td>
+	<td><a href="http://www.primmuehlematt.ch" target="_blank">Primarschule M&uuml;lematt</a></td></tr>
+  <tr><td date="08.02.2012">08.02.2012<br/></td><td>20:00</td><td>200mm - <b>Z&uuml;rcher Premiere</b></td><td>Z&uuml;rich</td>
+	<td><a href="http://www.rotefabrik.ch" target="_blank">Clubraum Rote Fabrik</a></td></tr>
+  <tr><td date="09.02.2012">09. - 11.02.2012</td><td>3 mal</td><td>200mm</td><td>Z&uuml;rich</td>
+	<td><a href="http://www.rotefabrik.ch" target="_blank">Clubraum Rote Fabrik</a></td></tr>
+  <tr><td date="22.03.2012">22.3.2012</td><td>3 mal</td><td>Y tu? Wer bisch du? (Kurzversion)</td><td>Primarschule Neufeld</td>
+      <td><a href="http://www.primneufeld.ch" target="_blank">Primarschule Neufeld</a></td></tr>
+  <tr><td date="27.03.2012">27. - 28.03.2012</td><td>2 mal</td><td>Y tu
+        <span class="small">(Kurzversion im Rahmen der Aktionswoche der Stadt Bern gegen Rassismus)</span></td><td>Bern</td>
+    <td><a href="http://www.onobern.ch" target="_blank">Ono</a></td></tr>
+  <tr><td date="19.10.2012">19./20.10.2012</td><td>2 mal</td><td>200mm - Premiere in</td><td>Luzern</td>
+    <td><a href="http://www.sousol.net" target="_blank">Sousol Tanz und Kulturraum</a></td></tr>
+  <tr><td date="31.10.2012">31.10. - 3.11.2012</td><td>4 mal</td><td>200mm</td><td>Z&uuml;rich</td>
+    <td><a href="http://www.rotefabrik.ch" target="_blank">Clubraum Rote Fabrik</a></td></tr>
+  <tr><td date="22.11.2012">22.11.2012</td><td>2 mal</td><td>Was gischmer f&uuml;r d Welt</td><td>Sursee</td>
+    <td><a href="http://www.somehuus.ch" target="_blank">Somehuus (Theater-Perlen)</a></td></tr>
+  <tr><td date="12.04.2011">12. - 15. 4. 2011</td><td>4 mal</td><td>Choco Loco</td><td>Basel</td>
+    <td><a href="http://www.theaterfalle.ch" target="_blank">Theaterfalle</a></td></tr>
+<tr><td date="12.4.2011">12. - 15.04.2011</td><td>3 mal</td><td>Was gisch mer f&uuml;r d Welt?</td><td>Z&uuml;rich</td>
+	<td><a href="http://www.gzbuchegg.ch" target="_blank">Theater im GZ Buchegg</a></td></tr>
+<tr><td date="10.4.2011">10.04.2011</td><td>1 mal</td><td>Was gisch mer f&uuml;r d Welt?</td><td>Luzern</td>
+    <td><a href="http://www.spielleute.ch" target="_blank">Pavillon Spielleute</a></td></tr>
+<tr><td date="19.11.2010">31.10. - 19.11.2010</td><td>5 mal</td><td>Was gisch mer f&uuml;r d Welt?</td><td>Z&uuml;rich</td>
+	<td><a href="http://www.theater-purpur.ch" target="_blank">Theater PurPur</a></td></tr>
+<tr><td date="21.10.2010">Do 21.10.2010</td><td>10:00</td><td>Was gisch mer f&uuml;r d Welt?</td><td>Bern</td>
+	<td><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=bern,+elfenauweg+10&sll=46.942829,7.459641&sspn=0.017433,0.045447&ie=UTF8&hq=&hnear=Elfenauweg+10,+3006+Bern,+Switzerland&ll=46.938338,7.468858&spn=0.008717,0.022724&t=h&z=16"
+	target="_blank">Aula Manuel, Elfenauweg 10, 3006 Bern</a></td></tr>
+<tr><td date="24.6.2010">24.-25.6.2010</td><td>3 mal</td><td>Choco Loco</td><td>Mettlen</td>
+	<td>Schulhaus</td></tr>
+<tr><td date="22.4.2010<">Do 22.4.2010</td><td>19.00</td><td>Was gisch mer f&uuml;r d Welt?</td><td>Flammatt BE </td>
+	<td>Schulhaus Flammatt</td></tr>
+<tr><td date="26.3.2010">26.-31.3.2010</td><td>3 mal</td><td>Was gisch mer f&uuml;r d Welt?</td><td>Z&uuml;rich</td>
+	<td><a href="http://www.gzbuchegg.ch" target="_blank">Theater im GZ Buchegg</a></td></tr>
+<tr><td date="17.3.2010<">17. - 18.3.2010</td><td>4 mal</td><td>Choco Loco</td><td>Z&uuml;rich </td>
+	<td><a href="http://www.theater-purpur.ch" target="_blank">Theater PurPur</a></td></tr>
+<tr><td date="14.3.2010<">So 14.3.2010</td><td>18.00</td><td>Choco Loco</td><td>Landquart </td>
+	<td><a href="http://www.kath-iglahe.ch/" target="_blank">Katholisches Pfarreizentrum</a></td></tr>
+<tr><td date="3.3.2010">3.-10.3.2010</td><td>8 mal</td><td>Choco Loco</td><td>Z&uuml;rich </td>
+	<td><a href="http://www.theater-purpur.ch" target="_blank">Theater PurPur</a></td></tr>
+<tr><td date="15.11.2009">15.-17.11.2009</td><td>3 mal</td><td>Choco Loco </td><td>Brugg AG</td>
+	<td><a href="http://www.odeon-brugg.ch/" target="_blank">Odeon Brugg</a> (Theaterfunken AG)</td></tr>
+<tr><td date="18.11.2009">18./19.11.2009</td><td>3 mal</td><td>Choco Loco</td><td>Lenzburg AG Gemeindesaal </td>
+	<td><a href="http://www.theaterschoeneswetter.ch/" target="_blank">Theatersch&ouml;neswetter</a> (Theaterfunken AG)</td></tr>
+<tr><td date="24.11.2009">Di 24.11.2009</td><td>10.00</td><td>Choco Loco</td><td>Sursee LU</td>
+	<td><a href="http://www.somehuus.ch" target="_blank">Kleintheater Somehuus</a> (Theater Perlen LU)</td></tr>
+<tr><td date="29.11.2009">So 29.11. - 3.12. 2009</td><td>3 mal</td><td>Choco Loco</td><td>Z&uuml;rich </td>
+  <td><a href="http://www.gessnerallee.ch" target="_blank">Theaterhaus Gessnerallee</a> </td></tr>
+<tr><td date="12.12.2009">12./13.12.2009</td><td>2 mal</td><td>Was gisch mer f&uuml;r d Welt? (20min)</td><td>Z&uuml;rich</td>
+	<td><a href="http://www.rotefabrik.ch/" target="_blank">Rotefabrik</a> (Petite Beurre)</td></tr>
+<tr><td date="16.08.2009">So 16.08.2009</td><td>18.30</td><td>Y tu? wer bisch du? (Kurze Version)</td><td>Z&uuml;rich</td>
+	<td><a href="http://www.theaterspektakel.ch/Produktion.159.0.html?&cHash=43cb949da4&tx_theaterspectacle2_pi2[uid]=154"
+			target="_blank">Z&uuml;rcher Theater Spektakel (Friandises)</a></td></tr>
+<tr><td date="30.04.2009">Do 30.4.2009</td><td>3 mal</td><td>Y tu? wer bisch du? (Kurze Version)</td><td>Luzern</td>
+	<td>LUGA - Show B&uuml;hne</td></tr>
+<tr><td date="29.04.2009">Mi 29.4.2009</td><td>19.00</td><td>Choco Loco </td><td>Flammatt BE</td>
+	<td>Schulhaus Flammatt BE</td></tr>
+<tr><td date="08.04.2009">Mi 8.4.2009</td><td>17.30</td><td>Choco Loco</td><td>Engelburg SG</td>
+	<td><a href="http://www.kulturinengelburg.ch" target="_blank">Turnhalle Engelburg</a></td></tr>
+<tr><td date="29.03.2009">So 29.3.2009</td><td>16.30</td><td>Choco Loco </td><td>Luzern</td>
+    <td><a href="http://www.spielleute.ch" target="_blank">Pavillon Spielleute</a></td></tr>
+<tr><td>11.-15.3.2009</td><td>6 mal</td><td>Choco Loco</td><td>Bern</td>
+	<td><a href="http://www.schlachthaus.ch" target="_blank">Schlachthaus Theater Bern</a></td></tr>
+<tr><td>7.3.-10.3. 2009</td><td>6 mal</td><td>Choco Loco</td><td>Aarau</td>
+	<td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube Aarau</a></td></tr>
+<tr><td>1.2. - 4.2.2009</td><td>4 mal</td><td>Choco Loco  - Premiere!</td><td>Z&uuml;rich</td>
+	<td><a href="http://www.gzbuchegg.ch/" target="_blank">Theater im GZ Buchegg</a></td></tr>
+<tr><td>15.11.2008</td><td>14.30</td><td>Y tu? wer bisch du?</td><td>Z&uuml;rich</td>
+	<td><a href="http://www.baeckeranlage.ch/" target="_blank">B&auml;ckeranlage</a></td></tr>
+<tr><td>6.11.2008</td><td>2 mal</td><td>Y tu? wer bisch du?</td><td>Bern</td>
+	<td>Gfeller Fonds, Aula Tscharnergut</td></tr>
+<tr><td>21.10.2008</td><td>2 mal</td><td>Y tu? wer bisch du? (Kurze Version)</td><td>Freiburg DE</td>
+	<td>Migrantinnen Woche - Schulhaus</td></tr>
+<tr><td>21.06.2008</td><td>20:00</td><td>Y tu? wer bisch du? (Kurze Version)</td><td>Luzern</td>
+	<td><a href="http://www.grandcasinoluzern.ch/" target="_blank">Grand Casino Luzern</a></td></tr>
+<tr><td>14.06.2008</td><td>20:00</td><td>Y tu? wer bisch du? (Kurze Version) Franz&ouml;sische Fassung</td><td>Gen&egrave;ve</td>
+	<td><a href="http://www.ville-ge.ch/culture/alhambra/" target="_blank">Th&eacute;&acirc;tre Alhambra</a></td></tr>
+<tr><td>07.06.2008</td><td>20:00</td><td>Y tu? wer bisch du? (Kurze Version)</td><td>Bremgarten AG</td>
+	<td><a href="http://www.kellertheater-bremgarten.ch/" target="_blank">Kellertheater Bremgarten</a></td></tr>
+<tr><td>06.06.2008</td><td>20:00</td><td>Y tu? wer bisch du? (Kurze Version)</td><td>Basel</td>
+	<td><a href="http://www.theater-basel.ch/" target="_blank">Theater Basel</a></td></tr>
+<tr><td>31.05.2008</td><td>20:00</td><td>Y tu? wer bisch du? (Kurze Version)</td><td>Liestal </td>
+	<td><a href="http://www.palazzo.ch/" target="_blank">Theater Palazzo Liestal</a></td></tr>
+<tr><td>16.05.2008</td><td>20:00</td><td>Y tu? wer bisch du? (Kurze Version) Franz&ouml;sische Fassung</td><td>La Chaux de Fonds</td>
+	<td><a href="http://www.tpr.ch/" target="_blank">Th&eacute;&acirc;tre Populaire Romand</a></td></tr>
+<tr><td>18.04.2008</td><td>15:30</td><td>Y tu? wer bisch du? </td><td>Thun</td>
+	<td>Auftritt an der KTV B&ouml;rse</td></tr>
+<tr><td>Do 28.02.2008</td><td>18:00</td><td>Y tu? wer bisch du? (Kurze Version)</td><td>Olten</td>
+	<td><a href="http://www.stadttheater-olten.ch/" target="_blank">Secondo Festival 08. Stadttheater Olten</a></td></tr>
+<tr><td>So 24.02.2008</td><td>15:00</td><td>Y tu? wer bisch du?</td><td>Wabern BE</td>
+	<td><a href="http://www.gurtenpark.ch/gurten/gurtenpark/uptown.htm" target="_blank">UPtown. Gurten - Park im Gr&uuml;nen</a></td></tr>
+<tr><td>Fr 21.09.2007</td><td>2 mal </td><td>Y tu? wer bisch du? (Franz. Fassung)</td><td>Freiburg</td>
+	<td><a href="http://www.theatreosses.ch" target="_blank">SPOT Festival 07, Th&eacute;&acirc;tre des Osses</a></td></tr>
+<tr><td>Mo 21.09.2007</td><td>2 mal</td><td>Y tu? wer bisch du? (Franz. Fassung)</td><td>Freiburg</td>
+	<td><a href="http://www.nuithonie.com/" target="_blank">SPOT Festival 07, Nuithonie, Villars-sur-Gl&acirc;ne</a></td></tr>
+<tr><td>Fr 13.07.2007</td><td>11.00</td><td>Y tu? wer bisch du?</td><td>Erlach</td>
+	<td><a href="http://www.erlach-lacht.ch/" target="_blank">Festival Erlach Lacht.</a></td></tr>
+<tr><td>So 10.06.2007</td><td>15.00</td><td>Y tu? wer bisch du?</td><td>Luzern</td>
+	<td><a href="http://www.spielleute.ch/" target="_blank">Pavillon Spielleute</a></td></tr>
+<tr><td>Sa 5.05.2007</td><td>15.00</td><td>Y tu? wer bisch du?</td><td>Chur</td>
+	<td><a href="http://www.mellowdie.com/" target="_blank">Werkstatt Chur</a></td></tr>
+<tr><td>Mi 18.04.2007</td><td>4 mal</td><td>Y tu? wer bisch du?</td><td>Bern</td>
+	<td><a href="http://www.studiobuehnebern.ch" target="_blank">Theater Remise</a></td></tr>
+<tr><td>Sa 24.03.2007 </td><td>2 mal</td><td>Y tu? wer bisch du? - Premiere!</td><td>Z&uuml;rich</td>
+	<td><a href="http://www.buehne-s.ch" target="_blank">Theater B&uuml;hne S</a></td></tr>
+</tbody></table>
+
+    </div>
+
+    <div id="leftcol">
+      <div id="nav">
+        <ul class="nav">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/about.html">&Uuml;ber uns</a></li>
+          <li><a href="/projekte.html">Projekte</a></li>
+          <li><a href="/daten.html">Spieldaten</a></li>
+          <li><a href="/galerie.html">Galerie</a></li>
+          <li><a href="/presse.html">Presse</a></li>
+          <li><a href="/amigos.html">Amigos</a></li>
+          <li><a href="/kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <footer id="footer">
+    <div id="copyright">&copy;2013 Mandarina&Co info[at]mandarina.ch</div>
+    <ul class="nav footer">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/about.html">&Uuml;ber uns</a></li>
+      <li><a href="/projekte.html">Projekte</a></li>
+      <li><a href="/daten.html">Spieldaten</a></li>
+      <li><a href="/galerie.html">Galerie</a></li>
+      <li><a href="/presse.html">Presse</a></li>
+      <li><a href="/amigos.html">Amigos</a></li>
+      <li><a href="/kontakt.html">Kontakt</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10961026-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>
