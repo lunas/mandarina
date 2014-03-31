@@ -172,6 +172,11 @@ blockquote a, blockquote .text{
   font-size: 0.8em;
 }
 
+.caption {
+    margin-top: 2px;
+    margin-bottom: 1em;
+}
+
 /* ************************* Home  ************************************ */
 
 .home h2 {
