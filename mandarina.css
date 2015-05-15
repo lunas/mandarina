@@ -177,6 +177,10 @@ blockquote a, blockquote .text{
     margin-bottom: 1em;
 }
 
+.comment {
+    font-style: italic;
+}
+
 /* ************************* Home  ************************************ */
 
 .home h2 {
@@ -191,24 +195,24 @@ blockquote a, blockquote .text{
  font-size: 0.8em;
 }
 
-#home-gallery {
+
+/* ------------ moving gallery -------------- */
+.moving-gallery {
   position: relative;
   width: 544px;
   height: 250px;
-  background: url(images/petopia/dianakrishan-0.jpg) no-repeat center top;
 }
-#home-gallery a {
+.moving-gallery a {
   width: 100%;
   height: 100%;
   display: block;
   opacity: 0;
-  background: url(images/petopia/dianakrishan-1.jpg) no-repeat center;
   //-webkit-transition: opacity 1.5s linear;
   //-moz-transition: opacity 1.5s linear;
   // -o-transition: opacity 1.5s linear;
   //transition: opacity 1.5s linear;
 }
-#home-gallery .copyright {
+.moving-gallery .copyright {
   position: absolute;
   right: 5px;
   bottom: 0;
@@ -216,10 +220,29 @@ blockquote a, blockquote .text{
   color: white;
   text-shadow: 1px 1px #000000;
 }
-
-#home-gallery ax:hover {
+.moving-gallery ax:hover {
   opacity: 1;
 }
+
+/* for homepage page */
+
+.home .moving-gallery {
+    height: 363px;
+    background: url(images/3times/3times-0.jpg) no-repeat center top;
+}
+.home .moving-gallery a {
+    background: url(images/3times/3times-1.jpg) no-repeat center;
+}
+
+/* for projekt-petopia page */
+
+.projekt-petopia .moving-gallery {
+  background: url(images/petopia/dianakrishan-0.jpg) no-repeat center top;
+}
+.projekt-petopia .moving-gallery a {
+  background: url(images/petopia/dianakrishan-1.jpg) no-repeat center;
+}
+
 /* ************************* About ************************************ */
 #maincol.about table td:first-child {
  font-weight: bold; 
