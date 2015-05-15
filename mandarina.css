@@ -67,7 +67,7 @@ html, body{
  display:block;
  overflow:auto;
 }
-#footer #copyright {
+#footer .copyright {
     position: absolute;
     right: 4px;
     top:  100px;
@@ -208,7 +208,7 @@ blockquote a, blockquote .text{
   // -o-transition: opacity 1.5s linear;
   //transition: opacity 1.5s linear;
 }
-#home-gallery #copyright {
+#home-gallery .copyright {
   position: absolute;
   right: 5px;
   bottom: 0;
@@ -261,6 +261,10 @@ blockquote a, blockquote .text{
  margin-top: 0;
 }
 
+.projekte img.projekt-thumbnail {
+    width: 260px;
+    height: 150px;
+}
 /* Projekt-Details */
 
 .projekt-detail h2{
