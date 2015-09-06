@@ -19,75 +19,79 @@
 
     <script language="JavaScript" type="text/javascript">
 
-     $(document).ready(function() {
+      $(document).ready(function() {
 
-			function date2num(s) {
-				var hit = s.match(/(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})/);
-				if (hit == null)
-					return 0;
-				var day = hit[1];
-				var month = hit[2];
-				var year  = hit[3];
-				var d = new Date(year, month, day);
-				return d.getTime();
-			}
+		 	  function date2num(s) {
+		 	  	var hit = s.match(/(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})/);
+		 	  	if (hit == null)
+		 	  		return 0;
+		 	  	var day = hit[1];
+		 	  	var month = hit[2];
+		 	  	var year  = hit[3];
+		 	  	var d = new Date(year, month, day);
+		 	  	return d.getTime();
+		 	  }
 
-			function time2num(s) {
-				var hit = s.match(/(\d{1,2})[\.:](\d{2})/);
-				if (hit==null)
-					return 1439;	//1 Minute vor Mitternacht > kommt ans ende
-				var hours = hit[1];
-				var mins  = parseInt(hit[2]);
-				return hours*60+mins;
-			}
+		 	  function time2num(s) {
+		 	  	var hit = s.match(/(\d{1,2})[\.:](\d{2})/);
+		 	  	if (hit==null)
+		 	  		return 1439;	//1 Minute vor Mitternacht > kommt ans ende
+		 	  	var hours = hit[1];
+		 	  	var mins  = parseInt(hit[2]);
+		 	  	return hours*60+mins;
+		 	  }
 
-      var rows = $('#neue_daten tbody tr');
-      $.each(rows, function(index, row) {
-				var datum = $(row).find('td:first').html();
-				var datumInMs = date2num(datum);
-				var today = new Date();
-				if (datumInMs < today.getTime()) {
-					$(row).prependTo('#alte_daten tbody');
-				}
-      });
+        var rows = $('#neue_daten tbody tr');
+        $.each(rows, function(index, row) {
+          var dateCell = $(row).find('td:first');
+          var datum = dateCell.attr('date');
+          var datumInMs = date2num(datum);
+          var today = new Date();
+          if (datumInMs < today.getTime()) {
+            // replace content of cell w/ date-attr (because content may contain week of day, which
+            // we don't want to display in the 'old' dates anymore:
+            dateCell.html(datum);
+            $(row).prependTo('#alte_daten tbody');
+          }
+        });
 
-      $.tablesorter.addParser({
-                      id: 'datum',
-                      is: function(s) { return false;},
-                      format: date2num,
-                      type: 'numeric'
-              });
+        $.tablesorter.addParser({
+                        id: 'datum',
+                        is: function(s) { return false;},
+                        format: date2num,
+                        type: 'numeric'
+                });
 
-         $.tablesorter.addParser({
-                      id: 'zeit',
-                      is: function(s) { return false;},
-                      format: time2num,
-                      type: 'numeric'
-              });
+        $.tablesorter.addParser({
+                     id: 'zeit',
+                     is: function(s) { return false;},
+                     format: time2num,
+                     type: 'numeric'
+             });
 
-         $("#neue_daten").tablesorter({
-                       sortList: [[0,0],[1,0]], //nach 1. und 2. Spalte sortierend, asc.
-                       headers: {
-                              0: {sorter: 'datum'},
-                              1: {sorter: 'zeit'}
-                      }
-              });
+        $("#neue_daten").tablesorter({
+                      sortList: [[0,0],[1,0]], //nach 1. und 2. Spalte sortierend, asc.
+                      headers: {
+                             0: {sorter: 'datum'},
+                             1: {sorter: 'zeit'}
+                     }
+             });
 
 
-         $("#alte_daten").tablesorter({
-                       sortList: [[0,1],[1,1]], //nach 1. und 2. Spalte sortierend, asc.
-                       headers: {
-                              0: {sorter: 'datum'},
-                              1: {sorter: 'zeit'}
-                      }
-              });
+        $("#alte_daten").tablesorter({
+                      sortList: [[0,1],[1,1]], //nach 1. und 2. Spalte sortierend, asc.
+                      headers: {
+                             0: {sorter: 'datum'},
+                             1: {sorter: 'zeit'}
+                     }
+             });
 
-         $('table.dates tbody tr').hover(
-                                         function(event) { $(this).addClass('mouseover'); },
-                                         function(event) { $(this).removeClass('mouseover'); }
-                                         );
+        $('table.dates tbody tr').hover(
+                                        function(event) { $(this).addClass('mouseover'); },
+                                        function(event) { $(this).removeClass('mouseover'); }
+                                        );
 
-    // show/hide tab Neue Daten and Alte Daten
+         // show/hide tab Neue Daten and Alte Daten
 
          $('#alte_daten').hide();
          $('#tab_neue a').click( function(event){
@@ -131,22 +135,12 @@
 </thead>
 <tbody>
 
-<!--
-neue daten mandarina
-Mi, 04.03.(14:30) , Sa, 07.03. (14:30), So, 08.03. 2015  (11Uhr) beim theater staldeholfen
-Di, 03.03. (10:00), Mi, 04.03.(10:00), oder Mo, 09.03. (10:00)
-
-Mi 18. März 2015    14.00 Uhr
-Mi 18. März 2015    16.00 Uhr
-Ort: Aula Buechholz Zollikon
--->
-
-  <tr><td date="26.06.2015">Mo, 29.06.2015</td><td>18:00</td><td>3---times</td><td>Linz</td>
-      <td><a href="http://schaexpir.at/programm/theaterdetail.html?L=0&uid=917" target="_blank">LINZER PREMIERE</a></td></tr>
-  <tr><td date="30.06.2015">Di, 30.06.2015</td><td>10:00</td><td>3---times</td><td>Linz</td>
-      <td><a href="http://schaexpir.at/programm/theaterdetail.html?L=0&uid=917" target="_blank">Schäxpir Festival Linz</a></td></tr>
-  <tr><td date="30.06.2015">Di, 30.06.2015</td><td>18:00</td><td>3---times</td><td>Linz</td>
-      <td><a href="http://schaexpir.at/programm/theaterdetail.html?L=0&uid=917" target="_blank">Schäxpir Festival Linz</a></td></tr>
+  <tr><td date="28.04.2016">Fr, 28.04.2016</td><td>15:00</td><td>3---times</td><td>Zürich</td>
+    <td><a href="http://www.neimenster.lu" target="_blank">Luxemburg	Neimënster</a></td></tr>
+  <tr><td date="29.04.2016">Fr, 29.04.2016</td><td>10:00</td><td>3---times</td><td>Zürich</td>
+    <td><a href="http://www.neimenster.lu" target="_blank">Luxemburg	Neimënster</a></td></tr>
+  <tr><td date="29.04.2016">Fr, 29.04.2016</td><td>14:30</td><td>3---times</td><td>Zürich</td>
+    <td><a href="http://www.neimenster.lu" target="_blank">Luxemburg	Neimënster</a></td></tr>
   <tr><td date="19.09.2015">Sa, 19.09.2015</td><td>14:30</td><td>3---times</td><td>Zürich</td>
     <td><a href="http://www.theater-stadelhofen.ch" target="_blank">ZÜRCHER PREMIERE</a></td></tr>
   <tr><td date="20.09.2015">So, 20.09.2015</td><td>11:00</td><td>3---times</td><td>Zürich</td>
@@ -172,6 +166,8 @@ Ort: Aula Buechholz Zollikon
 <tr><th>Datum</th><th>Zeit</th><th>St&uuml;ck</th><th>Ort</th><th>Theater </th></tr>
 </thead>
 <tbody>
+  <tr><td date="29.06.2015">29. - 30. 06.2015</td><td>3 mal</td><td>3---times</td><td>Linz</td>
+    <td><a href="http://schaexpir.at/programm/theaterdetail.html?L=0&uid=917" target="_blank">Schäxpir Festival Linz</a></td></tr>
   <tr><td date="18.03.2015">18.03.2015</td><td>2 mal</td><td>Petopia</td><td>Zollikon</td>
     <td><a href="http://www.kulturkreiszollikon.ch/lageplan/aula-buechholz" target="_blank">Aula Buechholz</a></td></tr>
   <tr><td date="03.03.2015">03. - 08.03.2015</td><td>4 mal</td><td>Petopia</td><td>Z&uuml;rich</td>
@@ -182,7 +178,7 @@ Ort: Aula Buechholz Zollikon
       <td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
   <tr><td date="16.02.2014">16. - 18.02.2014</td><td>5 mal</td><td>Petopia</td><td>Weinfelden</td>
       <td><a href="http://www.theaterhausthurgau.ch" target="_blank">Theaterhaus Thurgau</a></td></tr>
-  <tr><td date="23.10.2013">23. - 03.31.2013 </td><td>9 mal</td><td>Petopia</td><td>Z&uuml;rich</td>
+  <tr><td date="23.10.2013">23.10 - 03.11.2013 </td><td>9 mal</td><td>Petopia</td><td>Z&uuml;rich</td>
   <td><a href="http://www.theater-stadelhofen.ch" target="_blank">Theater Stadelhofen</a></td></tr>
   <tr><td date="27.01.2012">20. - 28.01.2012 </td><td>5 mal</td><td>200mm</td><td>Aarau</td>
 	<td><a href="http://www.tuchlaube.ch" target="_blank">Theater Tuchlaube</a></td></tr>
